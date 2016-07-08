@@ -23,3 +23,12 @@ In a longer term, I want them to:
 
 Later on, I'll need to make this data visually easier, so I might need to
 integrate this project with a game engine or something.
+
+## Instructions
+
+```
+npm install
+npm start
+```
+
+Visit http://localhost:8080 and open the console in DevTools

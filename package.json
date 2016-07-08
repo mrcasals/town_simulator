@@ -1,0 +1,30 @@
+{
+  "name": "town_simulator",
+  "version": "1.0.0",
+  "description": "A small town simulator. Currently, its citizens only:",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --inline --hot",
+    "type": "git",
+    "url": "git+https://github.com/mrcasals/town_simulator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrcasals/town_simulator/issues"
+  },
+  "dependencies": {
+    "babel-core": "^6.7.2",
+    "babel-preset-es2015": "^6.1.2",
+    "babel-preset-react": "^6.1.2",
+    "babel-preset-stage-2": "^6.1.2"
+  },
+  "homepage": "https://github.com/mrcasals/town_simulator#readme",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
