@@ -8,10 +8,15 @@ export class Person {
     this.age = age;
     this.gender = randomElement(GENDERS);
     this.name = composeName();
+    this.isDead = false
   }
 
   turn() {
     this.getOlder();
+
+    if (this.age >= 65) {
+      this.isDead = true
+    }
   }
 
   getOlder() {

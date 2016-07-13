@@ -6,11 +6,11 @@ A small town simulator. Currently, its citizens only:
 * get random genders
 * eat
 * get random names
+* die at a certain given age (65 years old)
 
 In a short term, I want them to:
 
 * form families
-* die at a certain given age
 * make babies
 
 In a longer term, I want them to:

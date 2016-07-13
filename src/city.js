@@ -1,4 +1,5 @@
 import { Person } from './person';
+import { Gravedigger } from './gravedigger';
 import { randomBetween } from './utils/random';
 
 export class City {
@@ -13,6 +14,7 @@ export class City {
   turn() {
     this.food -= this.people.length * 12; // people eat each month
     this.people.forEach(p => p.turn());
+    this.people = new Gravedigger(this.people).perform();
   }
 
   inspect() {
