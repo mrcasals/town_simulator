@@ -3,7 +3,7 @@ import { composeName } from './utils/name_generator'
 
 const GENDERS = ["male", "female"];
 
-export class People {
+export class Person {
   constructor(age = 20) {
     this.age = age;
     this.gender = randomElement(GENDERS);

@@ -1,4 +1,4 @@
-import { People } from './people';
+import { Person } from './person';
 import { randomBetween } from './utils/random';
 
 export class City {
@@ -6,7 +6,7 @@ export class City {
     this.food = 500000;
     this.people = []
     for(var i = 0; i < initialPeople; i++) {
-      this.people.push(new People(randomBetween(15, 25)));
+      this.people.push(new Person(randomBetween(15, 25)));
     }
   }
 
