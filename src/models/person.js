@@ -14,13 +14,21 @@ export class Person {
   turn() {
     this.getOlder();
 
-    if (this.age >= 65 || Math.random() < 0.001) {
+    if (this.age >= 65 || Math.random() < 0.01) {
       this.isDead = true
     }
   }
 
   getOlder() {
     this.age += 1;
+  }
+
+  isMale() {
+    return this.gender === 'male';
+  }
+
+  isFemale() {
+    return this.gender === 'female';
   }
 
   inspect() {

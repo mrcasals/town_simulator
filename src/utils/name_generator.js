@@ -32,5 +32,9 @@ function generateName(syllables) {
     name += randomElement(syllables);
   }
 
-  return name.charAt(0).toUpperCase() + name.slice(1);
+  return capitalize(name);
+}
+
+export function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
