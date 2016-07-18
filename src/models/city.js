@@ -1,6 +1,6 @@
 import { Person } from './person';
-import { Gravedigger } from './gravedigger';
-import { randomBetween } from './utils/random';
+import { Gravedigger } from '../services/gravedigger';
+import { randomBetween } from '../utils/random';
 
 export class City {
   constructor(initialPeople = 10) {

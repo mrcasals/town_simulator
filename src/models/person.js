@@ -1,5 +1,5 @@
-import { randomElement } from './utils/random';
-import { composeName } from './utils/name_generator'
+import { randomElement } from '../utils/random';
+import { composeName } from '../utils/name_generator'
 
 const GENDERS = ["male", "female"];
 

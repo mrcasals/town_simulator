@@ -1,4 +1,4 @@
-import { City } from './city'
+import { City } from './models/city'
 
 let city = new City();
 
