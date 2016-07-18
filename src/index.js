@@ -1,8 +1,8 @@
-import { City } from './models/city'
+import { Settlement } from './models/settlement'
 
-let city = new City();
+let settlement = new Settlement();
 
 setInterval(() => {
-  city.turn();
-  console.log(city.inspect());
+  settlement.turn();
+  console.log(settlement.inspect());
 }, 1000);

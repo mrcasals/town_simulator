@@ -2,7 +2,7 @@ import { Person } from './person';
 import { Gravedigger } from '../services/gravedigger';
 import { randomBetween } from '../utils/random';
 
-export class City {
+export class Settlement {
   constructor(initialPeople = 10) {
     this.food = 500000;
     this.people = []
