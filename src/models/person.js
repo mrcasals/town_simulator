@@ -14,7 +14,7 @@ export class Person {
   turn() {
     this.getOlder();
 
-    if (this.age >= 65) {
+    if (this.age >= 65 || Math.random() < 0.001) {
       this.isDead = true
     }
   }
