@@ -4,8 +4,6 @@ import { capitalize } from '../utils/name_generator'
 import { isMale } from '../models/person'
 import { MAX_AGE } from '../config';
 
-import { log } from './logger';
-
 const DEATH_BY_AGE = [
   '+per had so much love that +pos heart exploded',
   '+per was left behind',
@@ -21,22 +19,30 @@ const OTHER_DEATH_REASONS = [
 ]
 
 export class Gravedigger {
-  constructor(people) {
-    this.people = people
+  constructor(settlement) {
+    this.settlement = settlement;
   }
 
   perform() {
     let alive = Immutable.List();
+    let currentEvents = Immutable.List();
+    let { logs, people, turn } = this.settlement;
 
-    this.people.forEach(person => {
+    people.forEach(person => {
       if (person.dead) {
-        log({ message: this.deathMessage(person) });
+        currentEvents = currentEvents.push(
+          {
+            message: this.deathMessage(person)
+          }
+        );
       } else {
         alive = alive.push(person);
       }
     });
 
-    return alive;
+    let newLogs = logs.set(turn, currentEvents);
+
+    return {...this.settlement, people: alive, logs: newLogs };
   }
 
   deathMessage(person) {
