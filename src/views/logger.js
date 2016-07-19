@@ -1,4 +1,8 @@
-export function render(message) {
+export function render(logs, turn) {
+  if (logs === undefined) {
+    return;
+  }
+
   let element = document.getElementById('log_details');
-  element.innerHTML += `<p>${message}</p>`;
+  logs.forEach(log => element.innerHTML += `<p>Year ${turn}: ${log.message}</p>`);
 }

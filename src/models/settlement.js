@@ -7,5 +7,5 @@ export function make({ people, ...settlement }) {
     map(settler => makeSettler())
     .toList();
 
-  return { ...settlement, people: settlers };
+  return { ...settlement, people: settlers, turn: 0, logs: Immutable.Map() };
 }

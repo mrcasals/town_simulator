@@ -1,8 +1,5 @@
 import { Gravedigger } from '../services/gravedigger';
 
-export function gravediggerWorks({ people, ...settlement }) {
-  return {
-    ...settlement,
-    people: new Gravedigger(people).perform()
-  }
+export function gravediggerWorks(settlement) {
+  return new Gravedigger(settlement).perform();
 }
