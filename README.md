@@ -25,4 +25,4 @@ npm install
 npm start
 ```
 
-Visit http://localhost:8080 and open the console in DevTools
+Visit http://localhost:8080 and watch it run!

@@ -9,8 +9,3 @@ export function make({ people, ...settlement }) {
 
   return { ...settlement, people: settlers };
 }
-
-export function render({ people, food, ...settlement }) {
-  return `${renderPeople(people)}; Remaining food: ${food}`;
-}
-
