@@ -46,7 +46,7 @@ export class Gravedigger {
   }
 
   deathMessage(person) {
-    return `${person.name} (${person.gender}) has died at the age of ${person.age}. ${this.deathReason(person)}`
+    return `${person.name} (${person.gender}) died at the age of ${person.age}. ${this.deathReason(person)}`
   }
 
   deathReason(person) {
