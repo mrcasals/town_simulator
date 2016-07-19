@@ -12,16 +12,6 @@ export function make() {
   }
 }
 
-export function render(people) {
-  return people
-  .map(renderSettler)
-  .toArray();
-}
-
-export function renderSettler({ name, age, gender, dead, ...settler }) {
-  return `${name} (${age}${gender[0]})`;
-}
-
 export function isMale({ gender }) {
   return gender === 'male';
 }

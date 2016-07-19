@@ -4,6 +4,8 @@ import { capitalize } from '../utils/name_generator'
 import { isMale } from '../models/person'
 import { MAX_AGE } from '../config';
 
+import { log } from './logger';
+
 const DEATH_BY_AGE = [
   '+per had so much love that +pos heart exploded',
   '+per was left behind',
@@ -28,7 +30,7 @@ export class Gravedigger {
 
     this.people.forEach(person => {
       if (person.dead) {
-        console.log(this.deathMessage(person));
+        log({ message: this.deathMessage(person) });
       } else {
         alive = alive.push(person);
       }

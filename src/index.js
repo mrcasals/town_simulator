@@ -1,10 +1,16 @@
-import { make as makeSettlement, render as renderSettlement } from './models/settlement'
+require('./styles/styles.sass');
+
+import { make as makeSettlement } from './models/settlement'
+import { render as renderSettlement } from './views/settlement'
 import { turn } from './events/turn'
 
+document.getElementById('log_details').innerHTML = '';
+document.getElementById('settlers_details').innerHTML = '';
+
 let settlement = makeSettlement({food: 500000, people: 10, eatingRate: 12})
-console.log(renderSettlement(settlement));
+renderSettlement(settlement);
 
 setInterval(() => {
   settlement = turn(settlement)
-  console.log(renderSettlement(settlement));
-}, 1000);
+  renderSettlement(settlement);
+}, 500);
