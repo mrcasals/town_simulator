@@ -1,5 +1,8 @@
+import Immutable from 'immutable';
 import { randomElement } from '../utils/random'
 import { capitalize } from '../utils/name_generator'
+import { isMale } from '../models/person'
+import { MAX_AGE } from '../config';
 
 const DEATH_BY_AGE = [
   '+per had so much love that +pos heart exploded',
@@ -21,13 +24,13 @@ export class Gravedigger {
   }
 
   perform() {
-    let alive = [];
+    let alive = Immutable.List();
 
     this.people.forEach(person => {
-      if (person.isDead) {
+      if (person.dead) {
         console.log(this.deathMessage(person));
       } else {
-        alive.push(person);
+        alive = alive.push(person);
       }
     });
 
@@ -40,15 +43,15 @@ export class Gravedigger {
 
   deathReason(person) {
     let reason = ''
-    if (person.age >= 63) {
+    if (person.age >= MAX_AGE) {
       reason = randomElement(DEATH_BY_AGE);
     } else {
       reason = randomElement(OTHER_DEATH_REASONS);
     }
 
-    let possessive = person.isMale() ? 'his' : 'her';
-    let personal_pronoun = person.isMale() ? 'he' : 'she';
-    let pronoun = person.isMale() ? 'him' : 'her';
+    let possessive = isMale(person) ? 'his' : 'her';
+    let personal_pronoun = isMale(person) ? 'he' : 'she';
+    let pronoun = isMale(person) ? 'him' : 'her';
 
     return capitalize(reason
                       .replace('+pos', possessive)
