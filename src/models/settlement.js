@@ -1,24 +1,16 @@
-import { Person } from './person';
-import { Gravedigger } from '../services/gravedigger';
+import Immutable from 'immutable';
+import { make as makeSettler, render as renderPeople } from './person';
 import { randomBetween } from '../utils/random';
 
-export class Settlement {
-  constructor(initialPeople = 10) {
-    this.food = 500000;
-    this.people = []
-    for(var i = 0; i < initialPeople; i++) {
-      this.people.push(new Person(randomBetween(15, 25)));
-    }
-  }
+export function make({ people, ...settlement }) {
+  let settlers = Immutable.Range(0, people).
+    map(settler => makeSettler())
+    .toList();
 
-  turn() {
-    this.food -= this.people.length * 12; // people eat each month
-    this.people.forEach(p => p.turn());
-    this.people = new Gravedigger(this.people).perform();
-  }
-
-  inspect() {
-    let peopleInspect = this.people.map(p => `${p.inspect()}`)
-    return `${peopleInspect}; Remaining food: ${this.food}`;
-  }
+  return { ...settlement, people: settlers };
 }
+
+export function render({ people, food, ...settlement }) {
+  return `${renderPeople(people)}; Remaining food: ${food}`;
+}
+

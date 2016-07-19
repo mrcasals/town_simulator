@@ -1,37 +1,31 @@
-import { randomElement } from '../utils/random';
+import { randomElement, randomBetween } from '../utils/random';
 import { composeName } from '../utils/name_generator'
 
 const GENDERS = ["male", "female"];
 
-export class Person {
-  constructor(age = 20) {
-    this.age = age;
-    this.gender = randomElement(GENDERS);
-    this.name = composeName();
-    this.isDead = false
+export function make() {
+  return {
+    name: composeName(),
+    age: randomBetween(15, 35),
+    dead: false,
+    gender: randomElement(GENDERS) ,
   }
+}
 
-  turn() {
-    this.getOlder();
+export function render(people) {
+  return people
+  .map(renderSettler)
+  .toArray();
+}
 
-    if (this.age >= 65 || Math.random() < 0.01) {
-      this.isDead = true
-    }
-  }
+export function renderSettler({ name, age, gender, dead, ...settler }) {
+  return `${name} (${age}${gender[0]})`;
+}
 
-  getOlder() {
-    this.age += 1;
-  }
+export function isMale({ gender }) {
+  return gender === 'male';
+}
 
-  isMale() {
-    return this.gender === 'male';
-  }
-
-  isFemale() {
-    return this.gender === 'female';
-  }
-
-  inspect() {
-    return `${this.name}: ${this.age}${this.gender[0]}`;
-  }
+export function isFemale({ gender }) {
+  return gender === 'female';
 }
