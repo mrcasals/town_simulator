@@ -1,49 +1,55 @@
 import Immutable from 'immutable';
 import { isMale, isSingle } from '../models/person';
 
-export function populationMarries({ logs, people, ...settlement }) {
-  let singleMales = Immutable.List();
-  let singleFemales = Immutable.List();
-  let currentEvents = logs.get(settlement.turn) || Immutable.List();
+export function populationMarries(settlement) {
+  let { people, turn, logs } = settlement;
+  let alivePeople = people.filter(settler => !settler.dead);
+  let singles = singlesMap(alivePeople);
+  let pairs = pairUpSingles(singles);
+  let married = marryPairs(pairs);
 
-  people.forEach(person => {
-    if (isMale(person) && isSingle(person)) {
-      singleMales = singleMales.push(person.id);
-    } else if (!isMale(person) && isSingle(person)) {
-      singleFemales = singleFemales.push(person.id);
-    }
+  let newLogs = pairs.map(pair => {
+    return Immutable.fromJS({
+      event: 'NEW_MARRIAGE',
+      peopleIds: pair.map(person => person.id)
+    });
   })
 
-  let familiesToForm = Math.min(singleMales.count(), singleFemales.count());
+  let newPeople = married.reduce((people, newlyWed) => {
+    return people.set(newlyWed.id, newlyWed)
+  }, people);
 
-  for (let i = 0; i < familiesToForm; i++) {
-    let singleMaleId = singleMales.last();
-    let singleFemaleId = singleFemales.last();
+  return { ...settlement, people: newPeople, logs: logs.update(turn, currentEvents => currentEvents.concat(newLogs)) };
+}
 
-    people = people.set(
-      singleMaleId,
-      { ...people.get(singleMaleId), marriedTo: singleFemaleId}
-    );
-    people = people.set(
-      singleFemaleId,
-      { ...people.get(singleFemaleId), marriedTo: singleMaleId}
-    );
-
-    currentEvents = currentEvents.push(
-      {
-        event: 'NEW_MARRIAGE',
-        peopleIds: Immutable.List.of(singleMaleId, singleFemaleId)
+function singlesMap(people) {
+  return people.reduce((acc, settler, settlerId) => {
+    if (isSingle(settler)) {
+      if (isMale(settler)) {
+        return acc.update('singleMales', (males) => males.push(settler));
+      } else {
+        return acc.update('singleFemales', (females) => females.push(settler));
       }
+    } else {
+      return acc;
+    }
+
+  }, Immutable.fromJS({singleFemales: [], singleMales: []}))
+}
+
+function pairUpSingles(singlesMap) {
+  let numberOfPairs = singlesMap.minBy(e => e.count()).count();
+  let pairs = singlesMap.map(e => e.take(numberOfPairs))
+  return pairs.get('singleFemales').zipWith((a, b) => {
+    return Immutable.List.of(a, b)
+  }, pairs.get('singleMales'));
+}
+
+function marryPairs(pairs) {
+  return pairs.flatMap(pair => {
+    return Immutable.List.of(
+      { ...pair.first(), marriedTo: pair.last().id },
+      { ...pair.last(), marriedTo: pair.first().id }
     )
-
-    singleMales = singleMales.pop();
-    singleFemales = singleFemales.pop();
-  }
-
-  logs = logs.set(
-    settlement.turn,
-    currentEvents
-  )
-
-  return { ...settlement, people, logs };
+  })
 }

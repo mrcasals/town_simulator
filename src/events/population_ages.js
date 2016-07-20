@@ -1,10 +1,7 @@
 import { MAX_AGE } from '../config';
 
 export function populationAges({ people, ...settlement }) {
-  people = people.
-    map(age)
-    .toList()
-  return { people, ...settlement };
+  return { people: people.map(age), ...settlement };
 }
 
 function age({ age, dead, ...settler }) {
