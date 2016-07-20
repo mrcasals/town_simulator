@@ -3,8 +3,10 @@ import { composeName } from '../utils/name_generator'
 
 const GENDERS = ["male", "female"];
 
+let personId = 0;
 export function make() {
   return {
+    id: personId++,
     name: composeName(),
     age: randomBetween(15, 35),
     dead: false,
@@ -18,4 +20,8 @@ export function isMale({ gender }) {
 
 export function isFemale({ gender }) {
   return gender === 'female';
+}
+
+export function isSingle({ marriedTo }) {
+  return marriedTo === undefined;
 }
