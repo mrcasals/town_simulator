@@ -1,9 +1,9 @@
-export function render(settlers) {
+export function render({ people, ...settlement }) {
   let content = '';
   let element = document.getElementById('settlers_details');
   element.innerHTML = '';
 
-  settlers.forEach(settler => {
+  people.forEach(settler => {
     content += `<li>${renderSettler(settler)}</li>`;
   });
 
