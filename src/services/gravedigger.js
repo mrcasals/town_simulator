@@ -38,13 +38,16 @@ export class Gravedigger {
           }
         );
       } else {
-        alive = alive.push(person);
+        alive = alive.push(person.id);
       }
     });
 
     let newLogs = logs.set(turn, currentEvents);
+    people = people.filter(settler => {
+      return alive.includes(settler.id)
+    });
 
-    return {...this.settlement, people: alive, logs: newLogs };
+    return {...this.settlement, people, logs: newLogs };
   }
 
   deathMessage(person) {

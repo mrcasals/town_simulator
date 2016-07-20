@@ -5,23 +5,27 @@ import Immutable from 'immutable';
 
 describe('populationMarries', () => {
   describe('when there are possible matches', () => {
-    let people = Immutable.List.of(
-      { ...makePerson(), gender: 'male' },
-      { ...makePerson(), gender: 'female' },
-      { ...makePerson(), gender: 'male' },
+    let settlement = makeSettlement({ people: 0 });
+    settlement.people = Immutable.Map.of(
+      1,
+      { ...makePerson(), id: 1, gender: 'male' },
+      2,
+      { ...makePerson(), id: 2, gender: 'female' },
+      3,
+      { ...makePerson(), id: 3, gender: 'male' },
     );
-    let settlement = { ...makeSettlement({ people: 1 }), people: people };
 
     it('marries them', () => {
       let output = event.populationMarries(settlement);
 
-      expect(output.people.get(2).marriedTo).toEqual(output.people.get(1).id)
+      expect(output.people.get(2).marriedTo).toEqual(output.people.get(3).id)
+      expect(Immutable.Map.isMap(output.people)).toEqual(true);
     })
 
     it('does not marry the people that cannot have a partner', () => {
       let output = event.populationMarries(settlement);
 
-      expect(output.people.get(0).marriedTo).toEqual(undefined)
+      expect(output.people.get(1).marriedTo).toEqual(undefined)
     })
 
     it('adds some logs', () => {
@@ -36,22 +40,24 @@ describe('populationMarries', () => {
   })
 
   describe('when some families already exist', () => {
-    let married1 = { ...makePerson(), gender: 'male' }
-    let married2 = { ...makePerson(), gender: 'female' }
-
-    let people = Immutable.List.of(
-      { ...makePerson(), gender: 'male' },
-      { ...makePerson(), gender: 'female' },
-      { ...makePerson(), gender: 'male' },
-      { ...married1, marriedTo: married2.id },
-      { ...married2, marriedTo: married1.id },
+    let settlement = makeSettlement({ people: 0 });
+    settlement.people = Immutable.Map.of(
+      1,
+      { ...makePerson(), id: 1, gender: 'male' },
+      2,
+      { ...makePerson(), id: 2, gender: 'female' },
+      3,
+      { ...makePerson(), id: 3, gender: 'male' },
+      4,
+      { ...makePerson(), id: 4, gender: 'female', marriedTo: 5 },
+      5,
+      { ...makePerson(), id: 5, gender: 'male', marriedTo: 4 },
     );
-    let settlement = { ...makeSettlement({ people: 1 }), people: people };
 
     it('does not remarry people with a partner', () => {
       let output = event.populationMarries(settlement);
 
-      expect(output.people.get(-1).marriedTo).toEqual(output.people.get(-2).id)
+      expect(output.people.get(4).marriedTo).toEqual(output.people.get(5).id)
     })
   })
 })

@@ -4,53 +4,41 @@ import { isMale, isSingle } from '../models/person';
 export function populationMarries({ logs, people, ...settlement }) {
   let singleMales = Immutable.List();
   let singleFemales = Immutable.List();
-  let marriedPeople = Immutable.List();
   let currentEvents = logs.get(settlement.turn) || Immutable.List();
 
   people.forEach(person => {
     if (isMale(person) && isSingle(person)) {
-      singleMales = singleMales.push(person);
+      singleMales = singleMales.push(person.id);
     } else if (!isMale(person) && isSingle(person)) {
-      singleFemales = singleFemales.push(person);
-    } else {
-      marriedPeople = marriedPeople.push(person);
+      singleFemales = singleFemales.push(person.id);
     }
   })
 
   let familiesToForm = Math.min(singleMales.count(), singleFemales.count());
 
   for (let i = 0; i < familiesToForm; i++) {
-    let singleMale = singleMales.last();
-    let singleFemale = singleFemales.last();
+    let singleMaleId = singleMales.last();
+    let singleFemaleId = singleFemales.last();
 
-    marriedPeople = Immutable.List.of(
-      ...marriedPeople,
-      {
-        ...singleMale,
-        marriedTo: singleFemale.id
-      },
-      {
-        ...singleFemale,
-        marriedTo: singleMale.id
-      }
+    people = people.set(
+      singleMaleId,
+      { ...people.get(singleMaleId), marriedTo: singleFemaleId}
+    );
+    people = people.set(
+      singleFemaleId,
+      { ...people.get(singleFemaleId), marriedTo: singleMaleId}
     );
 
     currentEvents = currentEvents.push(
       {
         event: 'NEW_MARRIAGE',
-        peopleIds: Immutable.List.of(singleMale.id, singleFemale.id)
+        peopleIds: Immutable.List.of(singleMaleId, singleFemaleId)
       }
     )
 
     singleMales = singleMales.pop();
     singleFemales = singleFemales.pop();
   }
-
-  people = Immutable.List.of(
-    ...marriedPeople,
-    ...singleMales,
-    ...singleFemales
-  ).sortBy((value, key) => value.id)
 
   logs = logs.set(
     settlement.turn,

@@ -15,8 +15,8 @@ function getMessage(event, settlement) {
 
   switch(event.event) {
   case 'NEW_MARRIAGE':
-    let person1 = settlement.people.find(v => v.id === event.peopleIds.get(0))
-    let person2 = settlement.people.find(v => v.id === event.peopleIds.get(1))
+    let person1 = settlement.people.get(event.peopleIds.get(0))
+    let person2 = settlement.people.get(event.peopleIds.get(1))
     return `${person1.name} (${person1.age}${person1.gender[0]}) and ${person2.name} (${person2.age}${person2.gender[0]}) got married`;
   }
 }
