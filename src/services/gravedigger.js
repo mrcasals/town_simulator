@@ -32,6 +32,8 @@ export class Gravedigger {
       if (person.dead) {
         currentEvents = currentEvents.push(
           {
+            event: 'DEATH',
+            person: person,
             message: this.deathMessage(person)
           }
         );
