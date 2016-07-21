@@ -17,5 +17,8 @@ module.exports = {
         loaders: ["style", "css", "sass"]
       }
     ]
+  },
+  devServer: {
+    host: "0.0.0.0"
   }
 };
