@@ -22,11 +22,11 @@ describe('Gravedigger', () => {
         expect(newSettlement.people.first().id).toEqual(1);
       })
 
-      // it('adds new logs', () => {
-      //   let newSettlement = worker.perform();
-      //
-      //   expect(newSettlement.logs.get(settlement.turn).count()).toEqual(1);
-      // })
+      it('adds new logs', () => {
+        let newSettlement = worker.perform();
+
+        expect(newSettlement.logs.get(settlement.turn).count()).toEqual(1);
+      })
     })
   })
 })

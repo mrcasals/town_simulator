@@ -12,7 +12,7 @@ describe('Settlement', () => {
     it('sets some initial values', () => {
       let town = settlement.make({ people: 1 })
       expect(town.turn).toEqual(0)
-      expect(town.logs).toEqual(Immutable.Map())
+      expect(Immutable.Map.isMap(town.logs)).toEqual(true)
     })
   })
 })

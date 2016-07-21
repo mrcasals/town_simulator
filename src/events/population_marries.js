@@ -19,7 +19,11 @@ export function populationMarries(settlement) {
     return people.set(newlyWed.id, newlyWed)
   }, people);
 
-  return { ...settlement, people: newPeople, logs: logs.update(turn, currentEvents => currentEvents.concat(newLogs)) };
+  return {
+    ...settlement,
+    people: newPeople,
+    logs: logs.update(turn, currentEvents => currentEvents.concat(newLogs))
+  };
 }
 
 function singlesMap(people) {

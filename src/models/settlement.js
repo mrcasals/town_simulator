@@ -10,5 +10,9 @@ export function make({ people, ...settlement }) {
     settlers = settlers.set(settler.id, settler);
   }
 
-  return { ...settlement, people: settlers, turn: 0, logs: Immutable.Map() };
+  return { ...settlement,
+    people: settlers,
+    turn: 0,
+    logs: Immutable.Map.of(0, Immutable.List())
+  };
 }

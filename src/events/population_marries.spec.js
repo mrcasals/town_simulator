@@ -17,25 +17,34 @@ describe('populationMarries', () => {
 
     it('marries them', () => {
       let output = event.populationMarries(settlement);
+      let marriedPeople = output.people.filter(person => {
+        return person.marriedTo !== undefined
+      })
 
-      expect(output.people.get(2).marriedTo).toEqual(output.people.get(3).id)
+      expect(marriedPeople.count()).toEqual(2)
+      expect(marriedPeople.first().marriedTo).toEqual(marriedPeople.last().id)
+      expect(marriedPeople.last().marriedTo).toEqual(marriedPeople.first().id)
       expect(Immutable.Map.isMap(output.people)).toEqual(true);
     })
 
     it('does not marry the people that cannot have a partner', () => {
       let output = event.populationMarries(settlement);
+      let singlePeople = output.people.filter(person => {
+        return person.marriedTo === undefined
+      })
 
-      expect(output.people.get(1).marriedTo).toEqual(undefined)
+      expect(singlePeople.count()).toEqual(1)
+      expect(singlePeople.first().gender).toEqual('male')
     })
 
     it('adds some logs', () => {
       let output = event.populationMarries(settlement);
       let marriageLogs = output.logs.get(settlement.turn)
       .filter(event => {
-        return event.event === 'NEW_MARRIAGE'
+        return event.get('event') === 'NEW_MARRIAGE'
       })
 
-      expect(marriageLogs.toArray()).not.toEqual([]);
+      expect(marriageLogs.count()).not.toEqual(0);
     })
   })
 
