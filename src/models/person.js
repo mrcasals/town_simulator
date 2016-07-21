@@ -3,7 +3,7 @@ import { composeName } from '../utils/name_generator'
 
 const GENDERS = ["male", "female"];
 
-let personId = 0;
+let personId = 1;
 export function make() {
   return {
     id: personId++,
