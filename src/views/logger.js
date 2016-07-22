@@ -10,7 +10,7 @@ export function render(settlement) {
   currentEvents.forEach(event => element.innerHTML += `<p>Year ${turn}: ${getMessage(event, settlement)}</p>`);
 }
 
-function getMessage(event, settlement) {
+export function getMessage(event, settlement) {
   if (event.get('message') !== undefined) {
     return event.get('message')
   }
