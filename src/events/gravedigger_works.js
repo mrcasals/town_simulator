@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import { randomElement } from '../utils/random'
 import { capitalize } from '../utils/name_generator'
-import { isMale } from '../models/person'
+import { id, isDead, gender, age, name, isMale } from '../models/person'
 import { MAX_AGE } from '../config';
 
 const DEATH_BY_AGE = [
@@ -19,25 +19,24 @@ const OTHER_DEATH_REASONS = [
 ]
 
 export function gravediggerWorks(settlement) {
-  let { logs, people, turn } = settlement;
+  let people = settlement.get('people');
+  let turn = settlement.get('turn');
 
   let blah = deadAndAlive(people);
   let deadLog = blah.get('deadLog');
 
   let newPeople = blah.get('alive').reduce((people, alivePerson) => {
-    return people.set(alivePerson.id, alivePerson)
+    return people.set(id(alivePerson), alivePerson)
   }, Immutable.Map());
 
-  return {
-    ...settlement,
-    people: newPeople,
-    logs: logs.update(turn, currentEvents => currentEvents.concat(deadLog)),
-  };
+  return settlement
+    .set('people', newPeople)
+    .updateIn(['logs', turn], currentEvents => currentEvents.concat(deadLog));
 }
 
 function deadAndAlive(people) {
-  return people.reduce((acc, settler, settlerId) => {
-    if (settler.dead) {
+  return people.reduce((acc, settler) => {
+    if (isDead(settler)) {
       return acc.update('deadLog', (log) => log.push(generateLog(settler)));
     } else {
       return acc.update('alive', (settlers) => settlers.push(settler));
@@ -47,20 +46,20 @@ function deadAndAlive(people) {
 }
 
 function generateLog(settler) {
-  return {
+  return Immutable.fromJS({
     event: 'DEATH',
     person: settler,
     message: deathMessage(settler)
-  }
+  });
 }
 
 function deathMessage(person) {
-  return `${person.name} (${person.gender}) died at the age of ${person.age}. ${deathReason(person)}`
+  return `${name(person)} (${gender(person)}) died at the age of ${age(person)}. ${deathReason(person)}`
 }
 
 function deathReason(person) {
   let reason = ''
-  if (person.age >= MAX_AGE) {
+  if (age(person) >= MAX_AGE) {
     reason = randomElement(DEATH_BY_AGE);
   } else {
     reason = randomElement(OTHER_DEATH_REASONS);

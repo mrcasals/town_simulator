@@ -1,8 +1,8 @@
 import Immutable from 'immutable';
-export function advanceTurn({ logs, turn, ...settlement }) {
-  return {
-    ...settlement,
-    turn: turn + 1,
-    logs: logs.set(turn + 1, Immutable.List()),
-  }
+export function advanceTurn(settlement) {
+  let nextTurn = settlement.get('turn') + 1;
+
+  return settlement
+    .set('turn', nextTurn)
+    .update('logs', logs => logs.set(nextTurn, Immutable.List()))
 }
