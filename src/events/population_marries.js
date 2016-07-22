@@ -1,11 +1,12 @@
 import Immutable from 'immutable';
 import { isMale, isSingle } from '../models/person';
+import * as config from '../config'
 
-export function populationMarries(settlement) {
+export function populationMarries(settlement, random = Math.random) {
   let { people, turn, logs } = settlement;
-  let alivePeople = people.filter(settler => !settler.dead);
+  let alivePeople = people.filter(settler => !settler.dead && settler.age >= config.MINIMUM_AGE_TO_MARRY);
   let singles = singlesMap(alivePeople);
-  let pairs = pairUpSingles(singles);
+  let pairs = pairUpSingles(singles, random);
   let married = marryPairs(pairs);
 
   let newLogs = pairs.map(pair => {
@@ -27,7 +28,7 @@ export function populationMarries(settlement) {
 }
 
 function singlesMap(people) {
-  return people.reduce((acc, settler, settlerId) => {
+  return people.reduce((acc, settler) => {
     if (isSingle(settler)) {
       if (isMale(settler)) {
         return acc.update('singleMales', (males) => males.push(settler));
@@ -41,12 +42,16 @@ function singlesMap(people) {
   }, Immutable.fromJS({singleFemales: [], singleMales: []}))
 }
 
-function pairUpSingles(singlesMap) {
+function pairUpSingles(singlesMap, random) {
   let numberOfPairs = singlesMap.minBy(e => e.count()).count();
-  let pairs = singlesMap.map(e => e.take(numberOfPairs))
+  let pairs = singlesMap.map(e => e.sortBy(e => e.age).take(numberOfPairs))
+
   return pairs.get('singleFemales').zipWith((a, b) => {
     return Immutable.List.of(a, b)
-  }, pairs.get('singleMales'));
+  }, pairs.get('singleMales')).filter(pair => {
+    return Math.abs(pair.first().age - pair.last().age) <= config.MAX_AGE_DIFFERENCE_TO_MARRY &&
+      random() < config.PROBABILITY_TO_MARRY;
+  });
 }
 
 function marryPairs(pairs) {
