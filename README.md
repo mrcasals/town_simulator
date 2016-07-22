@@ -7,7 +7,7 @@ A small town simulator. These are its features:
 * [x] Citizens eat
 * [x] Citizens get random names
 * [x] Citizens die at a certain given age (65 years old)
-* [ ] Citizens form families
+* [x] Citizens form families
 * [ ] Citizens make babies
 * [ ] Citizens generate food
 * [ ] Citizens start with random food
