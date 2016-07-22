@@ -4,13 +4,9 @@ import Immutable from 'immutable';
 
 describe('advanceTurn', () => {
   it('advances the turn of the settlement', () => {
-    let settlement = {
-      ...makeSettlement({ people: 0 }),
-      turn: 0
-    };
-    let { turn, logs } = event.advanceTurn(settlement);
+    let settlement = makeSettlement({ people: 0, turn: 0 });
+    let nextSettlement = event.advanceTurn(settlement);
 
-    expect(turn).toEqual(1);
-    expect(Immutable.Map.isMap(logs)).toEqual(true);
+    expect(nextSettlement.get('turn')).toEqual(1);
   })
 })

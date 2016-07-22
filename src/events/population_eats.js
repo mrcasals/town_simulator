@@ -1,5 +1,6 @@
-export function populationEats({ food, people, eatingRate, ...settlement }) {
-  food -= people.count() * eatingRate;
+export function populationEats(settlement) {
+  let eatingRate = settlement.get('eatingRate');
+  let peopleCount = settlement.get('people').count();
 
-  return { food, people, eatingRate, ...settlement };
+  return settlement.update('food', food => food - (peopleCount * eatingRate))
 }

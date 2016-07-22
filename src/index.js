@@ -28,7 +28,7 @@ function toggleLoop() {
 function run() {
   timeoutId = setInterval(() => {
     settlement = turn(settlement)
-    if (settlement.people.count() === 0) {
+    if (settlement.get('people').count() === 0) {
       toggleLoop();
     }
     renderSettlement(settlement);

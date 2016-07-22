@@ -1,14 +1,11 @@
 import { MAX_AGE } from '../config';
 
-export function populationAges({ people, ...settlement }) {
-  return { people: people.map(age), ...settlement };
+export function populationAges(settlement ) {
+  return settlement.update('people', people => people.map(age))
 }
 
-function age({ age, dead, ...settler }) {
-  let nextAge = age + 1;
+function age(settler) {
+  let nextAge = settler.get('age') + 1;
 
-  if (nextAge >= MAX_AGE || Math.random() < 0.01) {
-    return { age: nextAge, dead: true, ...settler }
-  }
-  return { ...settler, age: nextAge, dead: false }
+  return settler.set('age', nextAge).set('dead', nextAge >= MAX_AGE || Math.random() < 0.01)
 }
