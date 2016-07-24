@@ -24,4 +24,13 @@ describe('populationBreeds', () => {
     expect(people.getIn([2, 'children', 0])).toEqual(id(child))
     expect(child.get('parents')).toEqual(Immutable.Set.of(1, 2))
   })
+
+  it('adds some logs', () => {
+    let childLogs = output.get('logs').get(town.get('turn'))
+      .filter(event => {
+        return event.get('event') === 'NEW_CHILD'
+      })
+
+    expect(childLogs.count()).not.toEqual(0);
+  })
 });
