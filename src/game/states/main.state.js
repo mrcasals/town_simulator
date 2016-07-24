@@ -19,16 +19,22 @@ export class MainState extends Phaser.State {
     this.villagers = this.game._settlement.get('people')
       .map(person => new Villager(this.game, person));
 
-    this.logsGUI = this.add.group();
-    this.logsGUI.alpha = 0;
-
     this.toggleLogKey = this.game.input.keyboard.addKey(Phaser.Keyboard.L);
 
     this.currentTurn = -1;
     this.messages = [];
 
+    this.logsGUI = this.add.group();
+    this.logsGUI.alpha = 0;
+
     this.foodText = this.game.add.text(this.game.width - 10, 10, `Remaining food: ${this.game._settlement.get('food')}`, TEXT_STYLE);
     this.foodText.anchor.setTo(1, 0);
+    this.turnText = this.game.add.text(this.game.width - 10, 30, `Turn: ${this.game._settlement.get('turn')}`, TEXT_STYLE);
+    this.turnText.anchor.setTo(1, 0);
+
+    this.toggleLogKey.onDown.add(() => {
+      this.logsGUI.alpha = 1 - this.logsGUI.alpha;
+    });
   }
 
   update() {
@@ -36,7 +42,7 @@ export class MainState extends Phaser.State {
 
     if (settlementTurn !== this.currentTurn) {
       this.updateVillagers();
-      
+
       let message = this.game._settlement.get('logs')
         .get(settlementTurn)
         .forEach(ev => {
@@ -47,23 +53,20 @@ export class MainState extends Phaser.State {
       this.messages
         .forEach((msg, index) => {
           let text = this.game.add.text(10, 10 + 20 * index, msg, TEXT_STYLE);
-          this.logsGUI.add(text);  
+          this.logsGUI.add(text);
         });
 
       this.foodText.text = `Remaining food: ${this.game._settlement.get('food')}`;
+      this.turnText.text = `Turn: ${this.game._settlement.get('turn')}`;
       this.currentTurn = settlementTurn;
     }
 
-    if (this.toggleLogKey.isDown) {
-      this.logsGUI.alpha = 1;
-    } else {
-      this.logsGUI.alpha = 0;
-    }
+    this.game.world.bringToTop(this.logsGUI);
   }
 
   updateVillagers() {
     let townPeople = this.game._settlement.get('people');
-    
+
     let deadPeople = this.villagers
       .filter(villager => {
         return !townPeople.has(villager._data.get('id'));
