@@ -1,6 +1,6 @@
 import * as event from './population_eats';
 import { make as makeSettlement } from '../models/settlement';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 describe('populationEats', () => {
   it('makes the population eat', () => {

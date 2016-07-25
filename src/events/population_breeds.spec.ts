@@ -1,7 +1,7 @@
 import * as event from './population_breeds';
 import { make as makePerson, id, age } from '../models/person';
 import { make as makeTown } from '../models/settlement';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 let random = () => 0;
 
@@ -10,7 +10,7 @@ describe('populationBreeds', () => {
     1,
     makePerson({ id: 1, marriedTo: 2, gender: 'male' }),
     2,
-    makePerson({ id: 2, marriedTo: 1, gender: 'female' }),
+    makePerson({ id: 2, marriedTo: 1, gender: 'female' })
   );
   let town = makeTown({ people: 0 })
     .set('people', people);

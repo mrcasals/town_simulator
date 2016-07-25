@@ -1,6 +1,6 @@
 import * as event from './advance_turn';
 import { make as makeSettlement } from '../models/settlement';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 describe('advanceTurn', () => {
   it('advances the turn of the settlement', () => {

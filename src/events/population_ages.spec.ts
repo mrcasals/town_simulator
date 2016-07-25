@@ -1,7 +1,7 @@
 import * as event from './population_ages';
 import { make as makeSettlement } from '../models/settlement';
 import { age } from '../models/person';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 describe('populationAges', () => {
   it('makes the population age', () => {
