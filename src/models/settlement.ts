@@ -1,18 +1,20 @@
-import Immutable from 'immutable';
+import { Range, Map, List, fromJS } from 'immutable';
 import { make as makeSettler, id } from './person';
 import { randomBetween } from '../utils/random';
 import { composeTownName } from '../utils/name_generator';
 
-export function make({ people, ...settlementOpts }) {
-  let settlers = Immutable.Range(0, people).reduce((settlers, _) => {
+export function make(settlementOpts) {
+  let { people } = settlementOpts;
+
+  let settlers = Range(0, people).reduce((settlers, _) => {
     let settler = makeSettler();
     return settlers.set(id(settler), settler);
-  }, Immutable.Map())
+  }, Map())
 
-  return Immutable.fromJS({
+  return Map(settlementOpts).merge(fromJS({
     name: composeTownName(),
     people: settlers,
     turn: 0,
-    logs: Immutable.Map.of(0, Immutable.List())
-  }).merge(Immutable.fromJS(settlementOpts));
+    logs: Map.of(0, List())
+  }));
 }

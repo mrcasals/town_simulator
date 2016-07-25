@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import { isMale, isSingle, isDead, id, age } from '../models/person';
 import * as config from '../config'
 
@@ -56,7 +56,7 @@ function marryPairs(pairs) {
   return pairs.flatMap(pair => {
     return Immutable.List.of(
       pair.first().set('marriedTo', id(pair.last())),
-      pair.last().set('marriedTo', id(pair.first())),
+      pair.last().set('marriedTo', id(pair.first()))
     )
   })
 }

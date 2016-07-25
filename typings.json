@@ -1,0 +1,10 @@
+{
+  "name": "town_simulator",
+  "dependencies": {
+    "immutable-nonambient": "file:./node_modules/immutable/dist/immutable-nonambient.d.ts"
+  },
+  "globalDependencies": {
+    "immutable": "file:./node_modules/immutable/dist/immutable.d.ts",
+    "require": "registry:dt/require#2.1.20+20160316155526"
+  }
+}
