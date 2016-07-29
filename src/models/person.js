@@ -6,12 +6,14 @@ const GENDERS = ["male", "female"];
 
 let personId = 1;
 export function make(data = {}) {
+  let gender = randomElement(GENDERS);
+
   return Immutable.fromJS({
     id: personId++,
-    name: composeName(),
+    name: composeName(gender),
     age: randomBetween(15, 35),
     dead: false,
-    gender: randomElement(GENDERS) ,
+    gender: gender,
   }).merge(Immutable.fromJS(data));
 }
 
