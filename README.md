@@ -1,5 +1,7 @@
 # Town simulator
 
+[Demo](http://townsimulator.surge.sh)
+
 A small town simulator. These are its features:
 
 * [x] Citizens get older
@@ -25,4 +27,10 @@ npm install
 npm start
 ```
 
-Visit http://localhost:8080 and watch it run!
+Visit [http://localhost:8080](http://localhost:8080) and watch it run! If you
+want to deploy your own version of the code:
+
+1. fork the repo
+1. modify the `config/CNAME` file
+1. run `npm install`
+1. run `npm deploy`
