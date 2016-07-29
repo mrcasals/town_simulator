@@ -1,5 +1,5 @@
 import { randomElement, randomBetween } from '../utils/random';
-import { composeName } from '../utils/name_generator'
+import { composePersonName } from '../utils/name_generator'
 import Immutable from 'immutable';
 
 const GENDERS = ["male", "female"];
@@ -10,7 +10,7 @@ export function make(data = {}) {
 
   return Immutable.fromJS({
     id: personId++,
-    name: composeName(gender),
+    name: composePersonName(gender),
     age: randomBetween(15, 35),
     dead: false,
     gender: gender,
