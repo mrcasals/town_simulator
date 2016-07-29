@@ -1,38 +1,27 @@
-import { randomBetween, randomElement } from './random'
+import { maleNames } from './maleNames';
+import { femaleNames } from './femaleNames';
+let Foswig = require('foswig');
 
-const firstNameSyllables = [
-  'mon',
-  'fay',
-  'shi',
-  'zag',
-  'blarg',
-  'rash',
-  'izen',
-]
+// Notes on surname generation: Algo-Saxons used only personal names, sometimes
+// with nicknames and patronymics, so it was not until after the Norman
+// Conquest (1066) that inherited surnames were adopted. Originally these were
+// only borne by nobles and were likely to be restricted to the place of
+// origin, preceded by 'de' as in modern French, or the father's name preceded
+// by 'Fitz' (from French fils 'son')
 
-const secondNameSyllables = [
-  'mon',
-  'fay',
-  'shi',
-  'zag',
-  'blarg',
-  'rash',
-  'izen',
-]
+export function composeName(gender) {
+  let name = new Foswig(3);
+  let surname = new Foswig(2);
 
-export function composeName() {
-  return `${generateName(firstNameSyllables)} ${generateName(secondNameSyllables)}`
-}
-
-function generateName(syllables) {
-  let name = '';
-  let numberOfSyllables = randomBetween(1, 4);
-
-  for(var i = 0; i < numberOfSyllables; i++) {
-    name += randomElement(syllables);
+  if (gender === 'male') {
+    name.addWordsToChain(maleNames);
+  } else {
+    name.addWordsToChain(femaleNames);
   }
 
-  return capitalize(name);
+  surname.addWordsToChain(maleNames);
+
+  return `${capitalize(name.generateWord(3, 15, true))} ${capitalize(surname.generateWord(3, 15, true))}`;
 }
 
 export function capitalize(word) {
