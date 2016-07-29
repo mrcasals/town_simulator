@@ -1,6 +1,7 @@
 import Immutable from 'immutable';
 import { make as makeSettler, id } from './person';
 import { randomBetween } from '../utils/random';
+import { composeTownName } from '../utils/name_generator';
 
 export function make({ people, ...settlementOpts }) {
   let settlers = Immutable.Range(0, people).reduce((settlers, _) => {
@@ -9,6 +10,7 @@ export function make({ people, ...settlementOpts }) {
   }, Immutable.Map())
 
   return Immutable.fromJS({
+    name: composeTownName(),
     people: settlers,
     turn: 0,
     logs: Immutable.Map.of(0, Immutable.List())
