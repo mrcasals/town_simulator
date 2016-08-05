@@ -7,7 +7,7 @@ export function render(settlement) {
   let currentEvents = logs.get(turn)
 
   let element = document.getElementById('log_details');
-  currentEvents.forEach(event => element.innerHTML += `<p>Year ${turn}: ${getMessage(event, settlement)}</p>`);
+  currentEvents.forEach(event => element.innerHTML = `<p>Year ${turn}: ${getMessage(event, settlement)}</p>` + element.innerHTML);
 }
 
 function getMessage(event, settlement) {
