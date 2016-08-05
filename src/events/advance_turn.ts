@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 export function advanceTurn(settlement) {
   let nextTurn = settlement.get('turn') + 1;
 

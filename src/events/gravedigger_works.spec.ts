@@ -1,7 +1,7 @@
 import * as event from './gravedigger_works';
 import { make as makePerson, id } from '../models/person';
 import { make as makeSettlement } from '../models/settlement';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 describe('gravedigger', () => {
   describe('perform', () => {
@@ -11,7 +11,7 @@ describe('gravedigger', () => {
           1,
           makePerson({id: 1}),
           2,
-          makePerson({id: 2, dead: true }),
+          makePerson({id: 2, dead: true })
         ));
 
       it('removes the dead people', () => {

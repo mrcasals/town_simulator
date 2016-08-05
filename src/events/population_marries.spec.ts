@@ -1,7 +1,7 @@
 import * as event from './population_marries';
 import { make as makePerson, isSingle, gender, isMarried, marriedTo, id } from '../models/person';
 import { make as makeSettlement } from '../models/settlement';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 let randomness = () => 0.5;
 
@@ -12,7 +12,7 @@ describe('populationMarries', () => {
         1,
         makePerson({ id: 1, age: 16, gender: 'male' }),
         2,
-        makePerson({ id: 2, gender: 'female' }),
+        makePerson({ id: 2, gender: 'female' })
       ));
 
     it('does not marry them', () => {
@@ -32,7 +32,7 @@ describe('populationMarries', () => {
         2,
         makePerson({ id: 2, age: 20, gender: 'female' }),
         3,
-        makePerson({ id: 3, age: 20, gender: 'male' }),
+        makePerson({ id: 3, age: 20, gender: 'male' })
       ));
 
     it('marries them', () => {
@@ -76,7 +76,7 @@ describe('populationMarries', () => {
         4,
         makePerson({ id: 4, age: 20, gender: 'female', marriedTo: 5 }),
         5,
-        makePerson({ id: 5, age: 20, gender: 'male', marriedTo: 4 }),
+        makePerson({ id: 5, age: 20, gender: 'male', marriedTo: 4 })
       ));
 
     it('does not remarry people with a partner', () => {

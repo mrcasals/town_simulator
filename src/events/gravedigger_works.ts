@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import { randomElement } from '../utils/random'
 import { capitalize } from '../utils/name_generator'
 import { id, isDead, gender, age, name, isMale } from '../models/person'

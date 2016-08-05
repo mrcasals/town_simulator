@@ -1,6 +1,6 @@
 import { randomElement, randomBetween } from '../utils/random';
 import { composePersonName } from '../utils/name_generator'
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
 
 const GENDERS = ["male", "female"];
 
@@ -8,13 +8,13 @@ let personId = 1;
 export function make(data = {}) {
   let gender = randomElement(GENDERS);
 
-  return Immutable.fromJS({
+  return fromJS({
     id: personId++,
     name: composePersonName(gender),
     age: randomBetween(15, 35),
     dead: false,
     gender: gender,
-  }).merge(Immutable.fromJS(data));
+  }).merge(fromJS(data));
 }
 
 export function id(person) {

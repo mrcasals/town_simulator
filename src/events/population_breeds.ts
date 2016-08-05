@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 import { make as makePerson, marriedTo, id, isMarried, isAlive, isFemale, isMale } from '../models/person';
 import * as config from '../config';
 
