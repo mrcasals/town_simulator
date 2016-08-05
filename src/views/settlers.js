@@ -6,7 +6,7 @@ export function render(settlement) {
   let element = document.getElementById('settlers_details');
   element.innerHTML = '';
 
-  let content = people.reduce((content, settler) => {
+  let content = people.sortBy(id).reduce((content, settler) => {
     return content + `<li>${renderSettler(settler)}</li>`;
   }, '');
 
