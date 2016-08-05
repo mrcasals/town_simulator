@@ -1,6 +1,6 @@
 import { MAX_AGE } from '../config';
 
-export function populationAges(settlement ) {
+export function populationAges(settlement) {
   return settlement.update('people', people => people.map(age))
 }
 
