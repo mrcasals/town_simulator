@@ -26,11 +26,11 @@ function killPeople(people, random) {
 
   return people.reduce((acc, person) => {
     if (random() > chanceToDie) {
-      return acc.update('newPeople', newPeople => newPeople.push(person));
+      return acc.update('newPeople', newPeople => newPeople.set(id(person), person));
     }
 
     return acc.update('killedIds', killed => killed.push(id(person)));
-  }, Immutable.fromJS({newPeople: [], killedIds: []}))
+  }, Immutable.fromJS({newPeople: {}, killedIds: []}))
 }
 
 function dieByNaturalDisaster(settler, chance, random) {
