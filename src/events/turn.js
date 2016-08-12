@@ -10,9 +10,9 @@ export function turn(settlement) {
   settlement = advanceTurn(settlement);
   settlement = populationEats(settlement);
   settlement = populationAges(settlement);
+  settlement = disastersHappen(settlement);
   settlement = populationMarries(settlement);
   settlement = populationBreeds(settlement);
-  settlement = disastersHappen(settlement);
   settlement = gravediggerWorks(settlement);
 
   return settlement;

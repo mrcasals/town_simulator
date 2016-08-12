@@ -1,4 +1,5 @@
 import { name, age, gender } from '../models/person';
+import { deathReason } from '../utils/death_reason';
 
 export function render(settlement) {
   let logs = settlement.get('logs');
@@ -11,11 +12,12 @@ export function render(settlement) {
 }
 
 function getMessage(event, settlement) {
-  if (event.get('message') !== undefined) {
-    return event.get('message')
+  switch(event.get('event')) {
+  case 'DEATH': {
+    let person = event.get('person');
+    return `${name(person)} (${gender(person)}) died at the age of ${age(person)}. ${deathReason(person)}`
   }
 
-  switch(event.get('event')) {
   case 'NEW_MARRIAGE':
     let [ person1, person2 ] = event.get('peopleIds').map(id => settlement.getIn(['people', id]))
     return `${name(person1)} (${age(person1)}${gender(person1)[0]}) and ${name(person2)} (${age(person2)}${gender(person2)[0]}) got married`;
