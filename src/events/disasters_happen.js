@@ -1,6 +1,12 @@
 import Immutable from 'immutable';
+import { randomElement } from '../utils/random';
 import { id, isDead } from '../models/person';
 import { NATURAL_DISASTER_CHANCE } from '../config';
+
+const DISASTER_TYPES = [
+  'flood',
+  'fire',
+];
 
 export function disastersHappen(settlement, random = Math.random) {
   if (random() > NATURAL_DISASTER_CHANCE) {
@@ -13,6 +19,7 @@ export function disastersHappen(settlement, random = Math.random) {
   let newPeopleAndDeaths = killPeople(alivePeople, random)
   let disasterLog = Immutable.fromJS({
     event: 'DISASTER',
+    eventType: randomElement(DISASTER_TYPES),
     killedIds: newPeopleAndDeaths.get('killedIds')
   });
 

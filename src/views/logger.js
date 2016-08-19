@@ -28,6 +28,6 @@ function getMessage(event, settlement) {
     return `${name(parent1)} (${age(parent1)}${gender(parent1)[0]}) and ${name(parent2)} (${age(parent2)}${gender(parent2)[0]}) had a child: ${name(child)}!`;
 
   case 'DISASTER':
-    return `A terrible flood occured! ${event.get('killedIds').count()} died.`;
+    return `A terrible ${event.get('eventType')} occured! ${event.get('killedIds').count()} died.`;
   }
 }
