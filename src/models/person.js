@@ -60,3 +60,7 @@ export function isSingle(person) {
 export function isMarried(person) {
   return !isSingle(person);
 }
+
+export function inspect(person) {
+  return `${name(person)} (${age(person)}${gender(person)[0]})`;
+}
