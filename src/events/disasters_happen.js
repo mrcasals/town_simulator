@@ -20,7 +20,7 @@ export function disastersHappen(settlement, random = Math.random) {
   let disasterLog = Immutable.fromJS({
     event: 'DISASTER',
     eventType: randomElement(DISASTER_TYPES),
-    killedIds: newPeopleAndDeaths.get('killedIds')
+    killed: newPeopleAndDeaths.get('killed')
   });
 
   return settlement
@@ -36,8 +36,8 @@ function killPeople(people, random) {
       return acc.update('newPeople', newPeople => newPeople.set(id(person), person));
     }
 
-    return acc.update('killedIds', killed => killed.push(id(person)));
-  }, Immutable.fromJS({newPeople: {}, killedIds: []}))
+    return acc.update('killed', killed => killed.push(person));
+  }, Immutable.fromJS({newPeople: {}, killed: []}))
 }
 
 function dieByNaturalDisaster(settler, chance, random) {

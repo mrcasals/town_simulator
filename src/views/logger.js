@@ -27,7 +27,24 @@ function getMessage(event, settlement) {
     let child = settlement.getIn(['people', event.get('childId')])
     return `${inspect(parent1)} and ${inspect(parent2)} had a child: ${inspect(child)}!`;
 
-  case 'DISASTER':
-    return `A terrible ${event.get('eventType')} occured! ${event.get('killedIds').count()} died.`;
+  case 'DISASTER': {
+    let killed = event.get('killed');
+    if (killed.count() === 0) {
+      return `A terrible ${event.get('eventType')} occured, but luckily no one died.`;
+    }
+
+    return `A terrible ${event.get('eventType')} occured. ${humanizedList(killed.map(inspect))} died.`;
   }
+  }
+}
+
+function humanizedList(list) {
+  var joinedList = list.join(', ');
+  var i = joinedList.lastIndexOf(',');
+
+  if (i < 0) {
+    return joinedList;
+  }
+
+  return `${joinedList.substr(0, i) } and ${joinedList.substr(i + 2)}`;
 }
