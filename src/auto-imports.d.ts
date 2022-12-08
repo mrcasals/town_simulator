@@ -6,6 +6,7 @@ declare global {
   const assert: typeof import('vitest')['assert']
   const beforeAll: typeof import('vitest')['beforeAll']
   const beforeEach: typeof import('vitest')['beforeEach']
+  const chai: typeof import('vitest')['chai']
   const describe: typeof import('vitest')['describe']
   const expect: typeof import('vitest')['expect']
   const it: typeof import('vitest')['it']
