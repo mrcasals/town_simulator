@@ -26,7 +26,7 @@ export let townNames = [
   'Berehill',
   'Bingham',
   'Binnend',
-  'Bishop\'s Fee',
+  "Bishop's Fee",
   'Boreraig',
   'Botolph Bridge',
   'Bradgate',
@@ -127,4 +127,4 @@ export let townNames = [
   'Whitwell',
   'Wolferlow',
   'Woodgate',
-];
+]
