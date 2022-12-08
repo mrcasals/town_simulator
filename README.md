@@ -29,8 +29,16 @@ pnpm install
 pnpm dev
 ```
 
-Visit <http://127.0.0.1:5173/> and watch it run! If you
-want to deploy your own version of the code:
+Visit <http://127.0.0.1:5173/> and watch it run!
+
+## Testing
+
+`pnpm test` - Run all test suites
+`pnpm test:coverage` - Generate test coverage reports. These can then be explored in the browser by running `pnpm dev` and then visiting <http://127.0.0.1:5173/coverage/>.
+
+## Deploy your own version
+
+If you want to deploy your own version of the code:
 
 1. fork the repo
 2. modify the `config/CNAME` file
