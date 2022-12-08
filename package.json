@@ -2,10 +2,16 @@
   "name": "town_simulator",
   "version": "1.0.0",
   "description": "A small town simulator. Currently, its citizens only:",
-  "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
-    "deploy": "rm -rf dist && webpack && cp config/CNAME dist && surge dist",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "deploy": "rm -rf dist && vite build && cp config/CNAME dist && surge dist",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/mrcasals/town_simulator.git"
   },
@@ -14,31 +20,22 @@
   "bugs": {
     "url": "https://github.com/mrcasals/town_simulator/issues"
   },
-  "dependencies": {
-    "babel-core": "^6.7.2",
-    "babel-preset-es2015": "^6.1.2",
-    "babel-preset-react": "^6.1.2",
-    "babel-preset-stage-2": "^6.1.2"
-  },
   "homepage": "https://github.com/mrcasals/town_simulator#readme",
   "devDependencies": {
-    "babel-core": "^6.10.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "css-loader": "^0.23.1",
+    "@vitest/coverage-c8": "^0.25.6",
     "foswig": "^1.1.1",
-    "html-webpack-plugin": "^2.22.0",
     "immutable": "^3.8.1",
-    "jasmine": "^2.4.1",
-    "karma": "^1.1.1",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^1.0.2",
-    "karma-webpack": "^1.7.0",
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.1",
-    "surge": "^0.18.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
-  }
+    "prettier": "^2.8.1",
+    "surge": "^0.23.1",
+    "typescript": "^4.9.4",
+    "vite": "^3.2.5",
+    "vitest": "^0.25.6"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "semi": false
+  },
+  "type": "module"
 }

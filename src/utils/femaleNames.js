@@ -78,4 +78,4 @@ export let femaleNames = [
   'Yda',
   'Yvette',
   'Yvonne',
-];
+]

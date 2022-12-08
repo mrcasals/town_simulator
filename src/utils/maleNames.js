@@ -246,4 +246,4 @@ export let maleNames = [
   'Wymund',
   'Wyon',
   'Ymbert',
-];
+]

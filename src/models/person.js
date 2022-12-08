@@ -1,12 +1,12 @@
-import { randomElement, randomBetween } from '../utils/random';
+import { randomElement, randomBetween } from '../utils/random'
 import { composePersonName } from '../utils/name_generator'
-import Immutable from 'immutable';
+import Immutable from 'immutable'
 
-const GENDERS = ["male", "female"];
+const GENDERS = ['male', 'female']
 
-let personId = 1;
+let personId = 1
 export function make(data = {}) {
-  let gender = randomElement(GENDERS);
+  let gender = randomElement(GENDERS)
 
   return Immutable.fromJS({
     id: personId++,
@@ -14,53 +14,53 @@ export function make(data = {}) {
     age: randomBetween(15, 35),
     dead: false,
     gender: gender,
-  }).merge(Immutable.fromJS(data));
+  }).merge(Immutable.fromJS(data))
 }
 
 export function id(person) {
-  return person.get('id');
+  return person.get('id')
 }
 
 export function marriedTo(person) {
-  return person.get('marriedTo');
+  return person.get('marriedTo')
 }
 
 export function age(person) {
-  return person.get('age');
+  return person.get('age')
 }
 
 export function name(person) {
-  return person.get('name');
+  return person.get('name')
 }
 
 export function gender(person) {
-  return person.get('gender');
+  return person.get('gender')
 }
 
 export function isAlive(person) {
-  return !isDead(person);
+  return !isDead(person)
 }
 
 export function isDead(person) {
-  return person.get('dead');
+  return person.get('dead')
 }
 
 export function isMale(person) {
-  return gender(person) === 'male';
+  return gender(person) === 'male'
 }
 
 export function isFemale(person) {
-  return gender(person) === 'female';
+  return gender(person) === 'female'
 }
 
 export function isSingle(person) {
-  return marriedTo(person) === undefined;
+  return marriedTo(person) === undefined
 }
 
 export function isMarried(person) {
-  return !isSingle(person);
+  return !isSingle(person)
 }
 
 export function inspect(person) {
-  return `${name(person)} (${age(person)}${gender(person)[0]})`;
+  return `${name(person)} (${age(person)}${gender(person)[0]})`
 }

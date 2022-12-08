@@ -1,5 +1,5 @@
-import * as settlement from './settlement';
-import Immutable from 'immutable';
+import * as settlement from './settlement'
+import Immutable from 'immutable'
 
 describe('Settlement', () => {
   describe('make', () => {

@@ -1,7 +1,7 @@
-import { maleNames } from './maleNames';
-import { femaleNames } from './femaleNames';
-import { townNames } from './townNames';
-let Foswig = require('foswig');
+import { maleNames } from './maleNames'
+import { femaleNames } from './femaleNames'
+import { townNames } from './townNames'
+import Foswig from 'foswig'
 
 // Notes on surname generation: Algo-Saxons used only personal names, sometimes
 // with nicknames and patronymics, so it was not until after the Norman
@@ -11,27 +11,29 @@ let Foswig = require('foswig');
 // by 'Fitz' (from French fils 'son')
 
 export function composePersonName(gender) {
-  let name = new Foswig(3);
-  let surname = new Foswig(2);
+  let name = new Foswig(3)
+  let surname = new Foswig(2)
 
   if (gender === 'male') {
-    name.addWordsToChain(maleNames);
+    name.addWordsToChain(maleNames)
   } else {
-    name.addWordsToChain(femaleNames);
+    name.addWordsToChain(femaleNames)
   }
 
-  surname.addWordsToChain(maleNames);
+  surname.addWordsToChain(maleNames)
 
-  return `${capitalize(name.generateWord(3, 15, true))} ${capitalize(surname.generateWord(3, 15, true))}`;
+  return `${capitalize(name.generateWord(3, 15, true))} ${capitalize(
+    surname.generateWord(3, 15, true),
+  )}`
 }
 
 export function composeTownName() {
-  let name = new Foswig(3);
-  name.addWordsToChain(townNames);
+  let name = new Foswig(3)
+  name.addWordsToChain(townNames)
 
-  return capitalize(name.generateWord(3, 15, true));
+  return capitalize(name.generateWord(3, 15, true))
 }
 
 export function capitalize(word) {
-  return word.charAt(0).toUpperCase() + word.slice(1);
+  return word.charAt(0).toUpperCase() + word.slice(1)
 }
